@@ -1,9 +1,7 @@
-#include <stdio.h>
 #include <allegro5/allegro.h>
 
 int main(void)
 {
-
     al_init();
     al_install_keyboard();
     al_install_mouse();
@@ -23,6 +21,6 @@ int main(void)
     al_uninstall_joystick();
     al_uninstall_mouse();
     al_uninstall_keyboard();
-
+    
     return 0;
 }
