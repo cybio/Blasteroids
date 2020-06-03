@@ -1,4 +1,4 @@
-#include <allegro5/allegro.h1>
+#include <allegro5/allegro.h>
 
 int main(void)
 {
