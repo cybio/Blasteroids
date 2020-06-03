@@ -3,6 +3,7 @@
 
 int main(void)
 {
+    //≤‚ ‘∑÷÷ß≥ÂÕª
     puts("hello world");
     return 0;
 }
