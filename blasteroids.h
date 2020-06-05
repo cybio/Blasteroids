@@ -1,4 +1,4 @@
 #pragma once
-#define WIDTH       640
-#define HEIGHT      480
+#define WIDTH       800
+#define HEIGHT      600
 #define DEFAULT_FPS 60

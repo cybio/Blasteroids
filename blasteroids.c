@@ -29,6 +29,12 @@ int main(void)
     int height = al_get_display_height(display);
     int running = true;
 
+    //Spaceship color
+    ALLEGRO_COLOR color = al_map_rgb(0, 255, 0);
+    ALLEGRO_COLOR background = al_map_rgb(0, 0, 0);
+    float sx = 100;
+    float sy = 580;
+
     al_start_timer(timer);
     while (running) {
         ALLEGRO_EVENT event;
@@ -37,10 +43,13 @@ int main(void)
         if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) running = false;
 
         if (event.type == ALLEGRO_EVENT_TIMER) {
-            al_draw_pixel(rand() % width, rand() % height,
-                al_map_rgb(rand() % 256, rand() % 256, rand() % 256));  
-            //al_draw_text(font, al_map_rgb(200, 180, 0), 100, 100, 0, "hello?");
+            al_clear_to_color(background);
+            al_draw_line(sx - 8, sy + 9, sx, sy - 11, color, 3);
+            al_draw_line(sx, sy - 11, sx + 8, sy + 9, color, 3);
+            al_draw_line(sx - 6, sy + 4, sx - 1, sy + 4, color, 3);
+            al_draw_line(sx + 6, sy + 4, sx + 1, sy + 4, color, 3);
             al_flip_display();
+            sy--;
         }
 
     }
