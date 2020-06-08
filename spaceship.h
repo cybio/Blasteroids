@@ -26,4 +26,10 @@ void spaceship_draw(const Spaceship* ship);
 
 void spaceship_rotated(Spaceship* ship, Rotated rotated);
 
+void spaceship_check();
+
+void spaceship_speedup(Spaceship* ship, float speed);
+
+void spaceship_update(Spaceship* ship);
+
 #endif // !_SPACESHIP_H

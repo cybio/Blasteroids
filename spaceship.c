@@ -1,4 +1,7 @@
 #include "spaceship.h"
+#include "calc.h"
+
+#define SHIP_MAX_SPEED  15.0f
 
 Spaceship* spaceship_create(float sx, float sy) {
     Spaceship* ship = malloc(sizeof(Spaceship));
@@ -29,12 +32,28 @@ void spaceship_rotated(Spaceship* ship, Rotated rotated) {
     switch (rotated)
     {
     case LEFT:
-        ship->heading -= 0.05;
+        ship->heading -= per_second(PI);
         break;
     case RIGHT:
-        ship->heading += 0.05;
+        ship->heading += per_second(PI);
         break;
     default:
         break;
     }
+}
+
+void spaceship_check() {
+    
+}
+
+void spaceship_speedup(Spaceship* ship, float speed) {
+    ship->speed += speed;
+    if (ship->speed > SHIP_MAX_SPEED) ship->speed = SHIP_MAX_SPEED;
+    if (ship->speed < 0.0) ship->speed = 0.0f;
+}
+
+void spaceship_update(Spaceship* ship) {
+    ship->sx += true_x(ship->heading, ship->speed);
+    ship->sy += true_y(ship->heading, ship->speed);
+    //printf("sx = %f, sy = %f\n", ship->sx, ship->sy);
 }

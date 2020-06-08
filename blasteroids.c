@@ -1,7 +1,7 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
-#include "blasteroids.h"
+#include "calc.h"
 #include "spaceship.h"
 
 int main(void)
@@ -15,7 +15,7 @@ int main(void)
 
     ALLEGRO_DISPLAY* display = al_create_display(WIDTH, HEIGHT);
     ALLEGRO_EVENT_QUEUE* queue = al_create_event_queue();
-    ALLEGRO_TIMER* timer = al_create_timer(1.0 / DEFAULT_FPS);
+    ALLEGRO_TIMER* timer = al_create_timer(1.0 / FPS);
     //ALLEGRO_FONT* font = al_load_font("Arial", 20, 0);
     al_set_window_title(display, "Blasteroids");
 
@@ -42,6 +42,7 @@ int main(void)
 
             spaceship_draw(ship);
             spaceship_rotated(ship, rotated);
+            spaceship_update(ship);
             rotated = STOP;
             
             al_flip_display();
@@ -50,10 +51,10 @@ int main(void)
         ALLEGRO_KEYBOARD_STATE keyState;
         al_get_keyboard_state(&keyState);
         if (al_key_down(&keyState, ALLEGRO_KEY_UP)) {
-            
+            spaceship_speedup(ship, per_second(15.0f));
         }
         else if (al_key_down(&keyState, ALLEGRO_KEY_DOWN)) {
-            
+            spaceship_speedup(ship, per_second(-15.0f));
         }
         else if (al_key_down(&keyState, ALLEGRO_KEY_LEFT)) {
             rotated = LEFT;
