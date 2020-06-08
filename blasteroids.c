@@ -2,6 +2,7 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 #include "blasteroids.h"
+#include "spaceship.h"
 
 int main(void)
 {
@@ -22,19 +23,13 @@ int main(void)
     al_register_event_source(queue, al_get_timer_event_source(timer));
     al_register_event_source(queue, al_get_display_event_source(display));
     al_register_event_source(queue, al_get_keyboard_event_source());
-    al_register_event_source(queue, al_get_mouse_event_source());
-    
+    al_register_event_source(queue, al_get_mouse_event_source());    
 
-    int width = al_get_display_width(display);
-    int height = al_get_display_height(display);
-    int running = true;
-
-    //Spaceship color
-    ALLEGRO_COLOR color = al_map_rgb(0, 255, 0);
     ALLEGRO_COLOR background = al_map_rgb(0, 0, 0);
-    float sx = 100;
-    float sy = 580;
+    Spaceship* ship = spaceship_create(400, 400);
+    Rotated rotated = STOP;
 
+    int running = true;
     al_start_timer(timer);
     while (running) {
         ALLEGRO_EVENT event;
@@ -44,19 +39,33 @@ int main(void)
 
         if (event.type == ALLEGRO_EVENT_TIMER) {
             al_clear_to_color(background);
-            al_draw_line(sx - 8, sy + 9, sx, sy - 11, color, 3);
-            al_draw_line(sx, sy - 11, sx + 8, sy + 9, color, 3);
-            al_draw_line(sx - 6, sy + 4, sx - 1, sy + 4, color, 3);
-            al_draw_line(sx + 6, sy + 4, sx + 1, sy + 4, color, 3);
+
+            spaceship_draw(ship);
+            spaceship_rotated(ship, rotated);
+            rotated = STOP;
+            
             al_flip_display();
-            sy--;
         }
 
+        ALLEGRO_KEYBOARD_STATE keyState;
+        al_get_keyboard_state(&keyState);
+        if (al_key_down(&keyState, ALLEGRO_KEY_UP)) {
+            
+        }
+        else if (al_key_down(&keyState, ALLEGRO_KEY_DOWN)) {
+            
+        }
+        else if (al_key_down(&keyState, ALLEGRO_KEY_LEFT)) {
+            rotated = LEFT;
+        }
+        else if (al_key_down(&keyState, ALLEGRO_KEY_RIGHT)) {
+            rotated = RIGHT;
+        }
     }
 
     al_destroy_timer(timer);
     al_destroy_event_queue(queue);
-    al_destroy_display(display);    
+    al_destroy_display(display);
 
     al_uninstall_joystick();
     al_uninstall_mouse();
